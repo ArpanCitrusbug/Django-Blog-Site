@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block body %}
+
+<h1 class="profile-name">Profile Name: {{user.username}}</h1>
+
+<h1 class="heading"><b>Blogs</b></h1>
+
+{% for post in user.post_set.all %}
+
+<div class="card-group">
+    <div class="card">
+        <img src="{{post.post_image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Title {{post.title}}</h5>
+            
+                <p class="card-category">Category:<a href=""> {{post.category}}</a></p>
+            
+            <p class="card-text">{{post.content}}</p>
+            <p class="card-text"><small class="text-muted">{{post.post.publish_date}}</small></p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

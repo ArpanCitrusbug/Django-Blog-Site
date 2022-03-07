@@ -1,0 +1,23 @@
+.heading{
+    text-align: center;
+    padding: 40px;
+}
+
+.card{
+    margin: 50px;
+}
+
+.card-category{
+    color: green;
+    font-weight: bold;
+}
+
+.card-profile-name{
+    color: blue;
+    font-weight:normal;
+}
+
+.pagination{
+    padding: 30px;
+    justify-content: center;
+}

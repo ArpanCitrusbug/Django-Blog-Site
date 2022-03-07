@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+Home
+{% endblock %}
+
+
+{% block body %}
+<h1 class="heading"><b>Blogs</b></h1>
+
+<div class="row row-cols-3">
+    {% for i in post %}
+<div class="col">
+    <div class="card-group">
+        <div class="card">
+            <img src="{{i.post_image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{i.title}}</h5>
+                <a href=""><p class="card-category">{{i.category}}</p></a>
+                <a href="/profile/{{i.user.username}}"><h6 class="card-profile-name">{{i.user.username}}</h6></a>
+                <p class="card-text">{{i.content|slice:"0:10"}}<a href="detail/{{i.id}}">read more</a></p>
+                <p class="card-text"><small class="text-muted">Blog Created Date: {{i.publish_date}}</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Blog
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col">
+        <h1 class="addblog-title">ADD BLOG</h1>
+        <p class="addblog-text">Create Your Own Idea & Show Your Creativity To The World.</p>
+
+        <div class="addblog-fields">
+            <div class="mb-3">
+                <select class=" category-select" required aria-label="select example">
+                    <option value="">Category</option>
+                    <option value="1">Technology</option>
+                    <option value="2">Sports</option>
+                    <option value="3">Music</option>
+                    <option value="4">Acting</option>
+                    <option value="5">Games</option>
+                    <option value="6">Motivational</option>
+                    <option value="7">Others</option>
+                </select>
+                <div class="invalid-feedback">Example invalid select feedback</div>
+            </div>
+            <div class="image-upload mx-5 py-2">
+                <div class="mb-3">
+                    <p class="text-primary">Enter valid image file.</p>
+                    <input type="file" class="form-control" aria-label="file example" required>
+                    <div class="invalid-feedback">Example invalid form file feedback</div>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="title" class="form-control" id="floatingInput" placeholder="Title">
+                <label for="floatingInput">Title</label>
+            </div>
+
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                    style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Description:</label>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3">Success</button>
+
+        </div>
+    </div>
+    <div class="col-4"></div>
+</div>
+
+{% endblock %}

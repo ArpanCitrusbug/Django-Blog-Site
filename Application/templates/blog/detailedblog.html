@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detailed View
+{% endblock %}
+
+{% block body %}
+
+<div class="details">
+<img class="image" src="{{post.post_image.url}}" alt="...">
+<h5 class="card-title">Title: <b>{{post.title}}</b></h5>
+<p class="card-category">Category: <a href="">{{post.category}}</a></p>
+<h6 class="card-profile-name">Profile Name: <a href="/profile/{{post.user.username}}">{{post.user}} </a></h6>
+<p class="card-text">{{post.content}}</p>
+</div>
+
+
+<div class="button-options">
+    <button type="button" class="btn btn-danger">Delete Blog</button>
+    <button type="button" class="btn btn-primary">Edit</button>
+    <button type="button" class="btn btn-success">Save</button>
+</div>
+{% endblock %}
