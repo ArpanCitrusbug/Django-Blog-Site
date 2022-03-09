@@ -10,39 +10,39 @@
 {% block body %}
 <div class="container-fluid">
     <h1 class="sign_in" style="padding: 15px; padding-left: 790px;">Sign In</h1>
-
-    <form class="row g-3 needs-validation">
-        <form>
+   
+    
+   
+    <form class="row g-3 needs-validation" action="{% url 'home' %}"  method="post">
+        
+        {% csrf_token %}
+        
             <div class="mb-3" style="padding-left: 650px;">
                 <label for="firstname" class="form-label">First Name</label>
                 <input type="text" class="form-control" style="width: 450px;" id="FirstName"
-                    aria-describedby="firstname">
+                    aria-describedby="firstname" name="firstname">
             </div>
             <div class="mb-3" style="padding-left: 650px;">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" style="width: 450px;" id="LastName" aria-describedby="lastname">
+                <input type="text" name="lastname" class="form-control" style="width: 450px;" id="LastName" aria-describedby="lastname">
             </div>
             <div class="mb-3" style="padding-left: 650px;">
                 <label for="username" class="form-label">Username</label>
-                <input type="email" class="form-control" style="width: 450px;" id="exampleInputEmail1"
+                <input type="text" name="username" class="form-control" style="width: 450px;" id="exampleInputEmail1"
                     aria-describedby="emailHelp">
             </div>
             <div class="mb-3" style="padding-left: 650px;">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" style="width: 450px;" id="exampleInputEmail1"
+                <input type="email" name="email" class="form-control" style="width: 450px;" id="exampleInputEmail1"
                     aria-describedby="emailHelp">
             </div>
             <div class="mb-3" style="padding-left: 650px;">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" style="width: 450px;" id="exampleInputPassword1">
+                <input type="password" name="password1" class="form-control" style="width: 450px;" id="exampleInputPassword1">
             </div>
             <div class="mb-3" style="padding-left: 650px;">
-                <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" style="width: 450px;" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3 form-check" style="padding-left: 675px;">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Agree to Terms & Conditions</label>
+                <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
+                <input type="password" name="password2" class="form-control" style="width: 450px;" id="exampleInputPassword2">
             </div>
             <div class="submit-btn" style="padding-left: 650px;">
 
