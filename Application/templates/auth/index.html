@@ -13,7 +13,7 @@
    
     
    
-    <form class="row g-3 needs-validation" action="{% url 'home' %}"  method="post">
+    <form class="row g-3" action="{% url 'home' %}"  method="post">
         
         {% csrf_token %}
         
@@ -46,7 +46,7 @@
             </div>
             <div class="submit-btn" style="padding-left: 650px;">
 
-                <button type="submit" style="width: 450px;" class="btn btn-primary">Submit</button>
+                <button type="submit" style="width: 450px;" id="submit" class="btn btn-primary">Submit</button>
             </div>
 
             <div style="text-align: center; padding-top: 10px;">

@@ -1,10 +1,11 @@
 
-from turtle import title
+from dataclasses import fields
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib import auth
+from django.core.paginator import Paginator
 from django.contrib.auth.hashers import check_password,make_password
-from django.views.generic import View
+from django.views.generic import *
 from .models import Post, Category
 from django.contrib.auth.models import User
 
@@ -37,11 +38,6 @@ class IndexView(View):
         else:
             messages.info(request, "All fields are Required")
         return render(request,'index.html')
-                # user = User.objects.create(username=username, password=password1, email=email, first_name=firstname, last_name=lastname )
-                # user.save()
-                # print('user created')
-            
-        
     
 
 class LogIn(View):
@@ -63,8 +59,13 @@ class MainBody(View):
     def get(self, request):
         if request.user.is_authenticated:
             blog=Post.objects.all()
+            p = Paginator(blog, 3)
+            page = request.GET.get('page')
+            blogs = p.get_page(page)
+
             context= {
                 'post':blog,
+                'blogs':blogs,
             }
             return render(request, 'mainbody.html', context)
         else:
@@ -86,17 +87,20 @@ class AddBlog(View):
     def get(self, request):
         if request.user.is_authenticated:
             return render(request, 'addblog.html')
+            
         else:
             return redirect('login')
+    
+    def post(self, request): 
+            title=request.POST['title']
+            content=request.POST['content']
+            # user=request.POST['user']
+            category=request.POST['category']
+            post_image=request.POST['postimage']
 
-    def post(request):
-        category = Category.objects.all()
-        if request.user.is_authenticated:
-            if request.method == "POST":
-                if request.user.is_authenticated:
-                    title = request.POST.get('title')
-                    content = request.POST.get()
-
+            post = Post.objects.create(title=title,content=content,category=category,postimage=post_image)
+            post.save()
+            return redirect('MainBody')
 
 
 class Profile(View):
@@ -110,6 +114,20 @@ class Profile(View):
             return render(request, 'profile.html',context)
         else:
             return redirect('login')
+
+
+class LoggedInUser(View):
+    def get(self, request, username):
+        if request.user.is_authenticated:
+            user=User.objects.get(username=username)
+            context={
+            'user':user,
+        }
+            return render(request, 'loggedinprofile.html',context)
+        else:
+            return redirect('login')
+
+
 
 class Logout(View):
     def get(self, request):
@@ -129,6 +147,8 @@ class Signup(View):
 
 
 
-# class DeletePost(DeleteView):
-#     model = Post
-#     success_url = '/blog/home'
+class DeletePost(DeleteView):
+    model = Post
+    success_url = 'MainBody'
+
+

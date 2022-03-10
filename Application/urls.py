@@ -1,9 +1,9 @@
 from unicodedata import name
 from django.urls import path
-from Application.models import Category
+
 from Application.views import * 
 
-from . import views
+
 
 urlpatterns = [
     path('', IndexView.as_view(), name="home"),
@@ -13,7 +13,8 @@ urlpatterns = [
     path('addblog', AddBlog.as_view(), name="Add Blog"),
     path('profile/<str:username>', Profile.as_view(), name="Profile"),
     path('logout', Logout.as_view(), name="Logout"),
-    path('signup',Signup.as_view(), name="Signup")
-    # path('category', Category.as_view(), name="Category")
-    # path('blog/<int:pk>/delete',DeletePost.as_view(), name= "deleteblog")
+    path('signup',Signup.as_view(), name="Signup"),
+    # path('category', Category.as_view(), name="Category"),
+    path('blog/<int:id>/delete',DeletePost.as_view(), name= "deleteblog"),
+    path('loggedinProf/<str:username>', LoggedInUser.as_view(), name="LoggedInUser")
 ]

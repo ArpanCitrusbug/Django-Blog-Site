@@ -13,11 +13,7 @@
 }
 
 .card-profile-name{
-    color: blue;
+    color: black;
     font-weight:normal;
 }
 
-.pagination{
-    padding: 30px;
-    justify-content: center;
-}
