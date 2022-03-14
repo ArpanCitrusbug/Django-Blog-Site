@@ -8,7 +8,7 @@ Profile
 
 <h1 class="profile-name">Profile Name: {{user.username}}</h1>
 
-<h1 class="heading"><b>Blogs</b></h1>
+<h1 class="heading"><b>Blogs- {{ user.id }}</b></h1>
 
 {% for post in user.post_set.all %}
 
@@ -17,14 +17,22 @@ Profile
         <img src="{{post.post_image.url}}" class="card-img-top" alt="...">
         <div class="card-body">
             <h1 class="card-title">Title: {{post.title}}</h1>
-
+            
             <h3 class="card-category">Category:<a href=""> {{post.category}}</a></h3>
 
             <h5 class="card-text">{{post.content}}</h5>
             <p class="card-text"><small class="text-muted">{{post.post.publish_date}}</small></p>
-
+            {% if current_user.is_authenticated %}
+            {% if user.id == post.author.id %}
+            <div>
+                <button type="button" class="btn btn-danger">Delete Blog</button>
+                <button type="button" class="btn btn-primary">Edit Blog</button>
+            </div>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
+
 </div>
 {% endfor %}
 {% endblock %}

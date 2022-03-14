@@ -22,13 +22,15 @@ Logged In Profile
 
             <h5 class="card-text">{{post.content}}</h5>
             <p class="card-text"><small class="text-muted">{{post.post.publish_date}}</small></p>
-
             <form action="/blog/{{post.id}}/delete" method="POST">
                 {% csrf_token %}
-                <button type="button" class="btn btn-danger">Delete Blog</button>
-                <button type="button" class="btn btn-primary">Edit Blog</button>
-                
+
+                <div>
+                    <button type="button" class="btn btn-danger">Delete Blog</button>
+                    <button type="button" class="btn btn-primary">Edit Blog</button>
+                </div>
             </form>
+
         </div>
     </div>
 </div>
