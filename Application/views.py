@@ -1,12 +1,10 @@
-
-from distutils.command.check import check
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib import auth
 from django.core.paginator import Paginator
 from django.contrib.auth.hashers import check_password, make_password
 from django.views.generic import *
-from .models import Post, Category
+from .models import Post
 from django.contrib.auth.models import User
 from django.views import *
 # from validate_email import validate_email
@@ -117,29 +115,7 @@ class AddBlog(CreateView):
     model = Post
     template_name = 'addblog.html'
     fields = '__all__'
-
-
-
-
-# class AddBlog(CreateView):
-#     def get(self, request):
-#         if request.user.is_authenticated:
-#             return render(request, 'addblog.html')
-
-#         else:
-#             return redirect('login')
-
-#     def post(fields):
-#         # title = request.POST['title']
-#         # content = request.POST['content']
-#         # # user=request.POST['user']
-#         # category = request.POST['category']
-#         # postimage = request.POST['postimage']
-#         template_name = 'addblog.html'
-#         fields = '__all__'
-
-#         # post = Post.objects.create(title=title, content=content, category=category, postimage=postimage)
-#         return redirect('MainBody')
+#make it proper and remove user from the addblog page
 
 
 class Profile(View):
@@ -150,7 +126,7 @@ class Profile(View):
             context = {
                 'user': user,
             }
-            return render(request, 'loggedinprofile.html', context)
+            return render(request, 'profile.html', context)
         else:
             return redirect('login')
 
@@ -183,6 +159,12 @@ class Signup(View):
         return render(request, 'index.html')
 
 
+class UpdatePost(UpdateView):
+    model = Post
+    template_name = 'updateblog.html'
+    fields = ['title','content','category','post_image']
+
 class DeletePost(DeleteView):
     model = Post
-    success_url = 'MainBody'
+    template_name = 'deletepost.html'
+

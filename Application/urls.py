@@ -1,6 +1,5 @@
-from unicodedata import name
 from django.urls import path
-from django.views.decorators.csrf import csrf_exempt
+
 
 from Application.views import *
 
@@ -13,7 +12,7 @@ urlpatterns = [
     path('profile/<str:username>', Profile.as_view(), name="Profile"),
     path('logout', Logout.as_view(), name="Logout"),
     path('signup', Signup.as_view(), name="Signup"),
-    path('blog/<int:id>/delete', DeletePost.as_view(), name="deleteblog"),
+    path('loggedinProf/update/<int:pk>', UpdatePost.as_view(), name="updateblog"),
     path('loggedinProf/<str:username>', LoggedInUser.as_view(), name="LoggedInUser"),
     # path('validateemail', csrf_exempt(EmailValidation.as_view()), name="emailvalidate"),
 ]

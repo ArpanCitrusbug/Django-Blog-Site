@@ -16,18 +16,18 @@ Logged In Profile
     <div class="card">
         <img src="{{post.post_image.url}}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h1 class="card-title">Title {{post.title}}</h1>
+            <h1 class="card-title">Title: {{post.title}}</h1>
 
             <h3 class="card-category">Category:<a href=""> {{post.category}}</a></h3>
 
             <h5 class="card-text">{{post.content}}</h5>
             <p class="card-text"><small class="text-muted">{{post.post.publish_date}}</small></p>
-            <form action="/blog/{{post.id}}/delete" method="POST">
+            <form method="POST">
                 {% csrf_token %}
 
                 <div>
-                    <button type="button" class="btn btn-danger">Delete Blog</button>
-                    <button type="button" class="btn btn-primary">Edit Blog</button>
+                    <a href="{% url 'updateblog' post.pk %}"><button type="button" class="btn btn-primary">Edit Blog</button></a>
+                    <a href="{% url 'updateblog' post.pk %}"><button type="button" class="btn btn-danger">Delete Blog</button></a>
                 </div>
             </form>
 
