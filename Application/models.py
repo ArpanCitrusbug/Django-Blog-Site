@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
@@ -19,7 +20,10 @@ class Post(models.Model):
     post_image = models.ImageField(upload_to="post/image", null=True)
 
     def __str__(self):
-        return self.title
+        return self.title + ' | ' + str(self.user)
+    
+    def get_absolute_url(self):
+        return reverse('Detailed_Blog', kwargs={"id":(self.id)})
 
 
 

@@ -1,6 +1,5 @@
-import json
-from dataclasses import fields
-from django.http import JsonResponse
+
+from distutils.command.check import check
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib import auth
@@ -9,7 +8,8 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.views.generic import *
 from .models import Post, Category
 from django.contrib.auth.models import User
-from validate_email import validate_email
+from django.views import *
+# from validate_email import validate_email
 
 
 # Create your views here.
@@ -53,19 +53,6 @@ class IndexView(View):
         else:
             messages.info(request, "All fields are Required")
         return render(request, 'index.html')
-
-
-class EmailValidation(View):
-    def post(self, request):
-        data = json.loads(request.body)
-        email = data['email']
-
-        if not validate_email(email):
-            return JsonResponse({'email_error': 'Email is not valid'}, status=400)
-        elif User.objects.filter(email=email).exists():
-            return JsonResponse({'email_error': 'Email Already exists'},status=409)
-        else:
-             return JsonResponse({'email_valid': True})
 
 
 class LogIn(View):
@@ -125,24 +112,34 @@ class DetailBlog(View):
             return redirect('login')
 
 
-class AddBlog(View):
-    def get(self, request):
-        if request.user.is_authenticated:
-            return render(request, 'addblog.html')
 
-        else:
-            return redirect('login')
+class AddBlog(CreateView):
+    model = Post
+    template_name = 'addblog.html'
+    fields = '__all__'
 
-    def post(self, request):
-        title = request.POST['title']
-        content = request.POST['content']
-        # user=request.POST['user']
-        category = request.POST['category']
-        post_image = request.POST['postimage']
 
-        post = Post.objects.create(title=title, content=content, category=category, postimage=post_image)
-        post.save()
-        return redirect('MainBody')
+
+
+# class AddBlog(CreateView):
+#     def get(self, request):
+#         if request.user.is_authenticated:
+#             return render(request, 'addblog.html')
+
+#         else:
+#             return redirect('login')
+
+#     def post(fields):
+#         # title = request.POST['title']
+#         # content = request.POST['content']
+#         # # user=request.POST['user']
+#         # category = request.POST['category']
+#         # postimage = request.POST['postimage']
+#         template_name = 'addblog.html'
+#         fields = '__all__'
+
+#         # post = Post.objects.create(title=title, content=content, category=category, postimage=postimage)
+#         return redirect('MainBody')
 
 
 class Profile(View):

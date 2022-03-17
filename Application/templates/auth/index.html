@@ -14,7 +14,7 @@
 
 
 
-    <form class="row g-3" action="{% url 'home' %}" onsubmit="" id="signup_form">
+    <form class="row g-3" action="{% url 'home' %}" onsubmit="" id="signup_form" method="POST">
         {% csrf_token %}
 
         <div class="mb-3" style="padding-left: 650px;">
@@ -172,7 +172,7 @@
 
         function check_password() {
             var password_length = $("#form-password");
-            if (password_length < 8) {
+            if (password_length >= 8) {
                 $("#password-error-message").html("At least 8 characters.");
                 $("#password-error-message").show();
                 error_password = true;
