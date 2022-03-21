@@ -21,7 +21,7 @@ Profile
                 <div class="card-body">
                     <h1 class="card-title">Title: {{post.title}}</h1>
 
-                    <h3 class="card-category">Category:<a href=""> {{post.category}}</a></h3>
+                    <h3 class="card-category">Category:<a href="/category/{{post.category}}"> {{post.category}}</a></h3>
 
                     <h5 class="card-text">{{post.content}}</h5>
                     <p class="card-text"><small class="text-muted">{{post.post.publish_date}}</small></p>
@@ -40,4 +40,4 @@ Profile
         {% endfor %}
     </div>
 </ul>
-        {% endblock %}
+{% endblock %}
