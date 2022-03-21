@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Category
+Add Category
 {% endblock %}
 
 {% block body %}
-{% for category in category %}
-<div class="categorybtn" style="padding-top: 50px;">
-    <button type="button" class="btn btn-dark">{{category.name}}</button>
-</div>
-{% endfor %}
-
+<h1 class="addblog-title">ADD CATEGORY</h1>
+<br><br>
+<form action="" method="POST" enctype="multipart/form-data" style="text-align: center;">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 {% endblock %}

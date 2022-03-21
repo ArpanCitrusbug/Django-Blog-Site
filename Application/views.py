@@ -4,9 +4,10 @@ from django.contrib import auth
 from django.core.paginator import Paginator
 from django.contrib.auth.hashers import check_password, make_password
 from django.views.generic import *
-from .models import Post
+from .models import Category, Post
 from django.contrib.auth.models import User
 from django.views import *
+from django.urls import reverse_lazy
 # from validate_email import validate_email
 
 
@@ -117,6 +118,15 @@ class AddBlog(CreateView):
     fields = '__all__'
 #make it proper and remove user from the addblog page
 
+class AddCategory(CreateView):
+    model = Category
+    template_name = 'category.html'
+    fields = '__all__'
+
+class Category(View):
+    def get(self, request, catergories):
+        category_posts= Post.objects.filter(category__name=catergories)
+        return render(request, 'categorypage.html', {'catergories':catergories, 'category_posts':category_posts})
 
 class Profile(View):
 
@@ -167,4 +177,4 @@ class UpdatePost(UpdateView):
 class DeletePost(DeleteView):
     model = Post
     template_name = 'deletepost.html'
-
+    success_url = reverse_lazy('home')

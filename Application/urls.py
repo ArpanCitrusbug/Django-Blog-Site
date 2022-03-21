@@ -9,10 +9,12 @@ urlpatterns = [
     path('home', MainBody.as_view(), name="MainBody"),
     path('detail/<int:id>', DetailBlog.as_view(), name="Detailed_Blog"),
     path('addblog', AddBlog.as_view(), name="Add_Blog"),
+    path('addcategory', AddCategory.as_view(), name="Add_Category"),
     path('profile/<str:username>', Profile.as_view(), name="Profile"),
     path('logout', Logout.as_view(), name="Logout"),
     path('signup', Signup.as_view(), name="Signup"),
     path('loggedinProf/update/<int:pk>', UpdatePost.as_view(), name="updateblog"),
     path('loggedinProf/<str:username>', LoggedInUser.as_view(), name="LoggedInUser"),
-    # path('validateemail', csrf_exempt(EmailValidation.as_view()), name="emailvalidate"),
+    path('category/<str:catergories>',Category.as_view(), name="category"),
+    path('loggedinProf/<int:pk>/delete', DeletePost.as_view(), name="deleteblog"),
 ]
