@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib import auth
@@ -8,7 +9,7 @@ from .models import Category, Post
 from django.contrib.auth.models import User
 from django.views import *
 from django.urls import reverse_lazy
-# from validate_email import validate_email
+from .forms import AddBlogForm
 
 
 # Create your views here.
@@ -93,6 +94,7 @@ class MainBody(View):
             context = {
                 'post': blog,
                 'blogs': blogs,
+                'category_menu': Category.objects.all()
             }
             return render(request, 'mainbody.html', context)
         else:
@@ -112,18 +114,32 @@ class DetailBlog(View):
 
 
 
-class AddBlog(CreateView):
-    model = Post
-    template_name = 'addblog.html'
-    fields = '__all__'
-#make it proper and remove user from the addblog page
+class AddBlog(View):
+    def get(self,request):
+        form = AddBlogForm
+        return render(request, 'addblog.html',{'form':form})
+
+    def post(self, request):
+        title = request.POST['title']
+        content = request.POST['content']
+        category = request.POST['category']
+        post_image = request.FILES['post_image']
+        category_check = Category.objects.filter(id=category)
+        print(category)
+        post = Post.objects.create(title=title, content=content, category=category_check.first(),
+                                       post_image=post_image, user = request.user)
+        post.save()
+        return redirect('MainBody')
+    # model = Post
+    # template_name = 'addblog.html'
+    # fields = '__all__'
 
 class AddCategory(CreateView):
     model = Category
     template_name = 'category.html'
     fields = '__all__'
 
-class Category(View):
+class CategoryView(View):
     def get(self, request, catergories):
         category_posts= Post.objects.filter(category__name=catergories)
         return render(request, 'categorypage.html', {'catergories':catergories, 'category_posts':category_posts})
@@ -178,3 +194,11 @@ class DeletePost(DeleteView):
     model = Post
     template_name = 'deletepost.html'
     success_url = reverse_lazy('home')
+
+
+class SearchBlog(View):
+    def post(self,request):
+        searched = request.POST['searched']
+        blogs = Post.objects.filter(title__icontains=searched)
+        return render(request,'searchblog.html',{'searched':searched,
+        'blogs':blogs})

@@ -23,8 +23,8 @@ Logged In Profile
 
                     <h3 class="card-category">Category:<a href="/category/{{post.category}}"> {{post.category}}</a></h3>
 
-                    <h5 class="card-text">{{post.content}}</h5>
-                    <p class="card-text"><small class="text-muted">{{post.post.publish_date}}</small></p>
+                    <h5 class="card-text">{{post.content|slice:"0:10"}}...<a href="/detail/{{post.id}}">read more</a></h5>
+                    <p class="card-text"><small class="text-muted">Blog Created Date: {{post.publish_date}}</small></p>
                     <form method="POST">
                         {% csrf_token %}
 

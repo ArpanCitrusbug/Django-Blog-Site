@@ -42,7 +42,9 @@
                         Category
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="">{{ catergories }}</a></li>
+                        {% for item in category_menu %}
+                        <li><a class="dropdown-item" href="/category/{{item}}">{{ item }}</a></li>
+                        {% endfor %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -65,8 +67,10 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            
+            <form class="d-flex" method="POST" action="{% url 'searchblog' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search Title" name="searched" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 

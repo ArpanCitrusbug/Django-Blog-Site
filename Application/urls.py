@@ -15,6 +15,7 @@ urlpatterns = [
     path('signup', Signup.as_view(), name="Signup"),
     path('loggedinProf/update/<int:pk>', UpdatePost.as_view(), name="updateblog"),
     path('loggedinProf/<str:username>', LoggedInUser.as_view(), name="LoggedInUser"),
-    path('category/<str:catergories>',Category.as_view(), name="category"),
+    path('category/<str:catergories>',CategoryView.as_view(), name="category"),
+    path('searchblog',SearchBlog.as_view(), name="searchblog"),
     path('loggedinProf/<int:pk>/delete', DeletePost.as_view(), name="deleteblog"),
 ]
