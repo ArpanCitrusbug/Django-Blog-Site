@@ -3,7 +3,7 @@
 
 
 {% block title %}
-Category Page
+Category Page | {{ catergories }}
 {% endblock %}
 
 
@@ -17,9 +17,9 @@ Category Page
 <div class="col">
     <div class="card-group">
         <div class="card">
-            <a href="detail/{{post.id}}"><img src="{{post.post_image.url}}" class="card-img-top" alt="..."></a>
+            <a href="/detail/{{post.id}}"><img src="{{post.post_image.url}}" class="card-img-top" alt="..."></a>
             <div class="card-body">
-                <a style=" text-decoration: none;" href="detail/{{post.id}}">
+                <a style=" text-decoration: none;" href="/detail/{{post.id}}">
                     <h1 style="color: black;">{{post.title}}</h1>
                 </a></h5>
                 <a style=" text-decoration: none;" href="/category/{{post.category}}">

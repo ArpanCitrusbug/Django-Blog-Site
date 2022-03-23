@@ -60,7 +60,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['Application/templates/auth',
         'Application/templates/blog',
-        'Application/templates/temp'],
+        'Application/templates/temp',
+        'customadmin/templates/auth'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,7 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Added Manuelly
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, "BlogSite\Application\static"),
+     os.path.join(BASE_DIR, "BlogSite\customadmin\static"),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "images")
