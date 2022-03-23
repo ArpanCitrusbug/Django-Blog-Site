@@ -23,16 +23,16 @@ Profile
 
                     <h3 class="card-category">Category:<a href="/category/{{post.category}}"> {{post.category}}</a></h3>
 
-                    <h5 class="card-text">{{post.content|slice:"0:10"}}...<a href="/detail/{{post.id}}">read more</a></h5>
+                    <h5 class="card-text">{{post.content|slice:"0:10"}}...<a href="/detail/{{post.id}}">read more</a>
+                    </h5>
                     <p class="card-text"><small class="text-muted">Blog Created Date: {{post.publish_date}}</small></p>
-                    <!-- {% if current_user.is_authenticated %}
-            {% if user.id == post.author.id %}
-            <div>
-                <button type="button" class="btn btn-danger">Delete Blog</button>
-                <button type="button" class="btn btn-primary">Edit Blog</button>
-            </div>
-            {% endif %}
-            {% endif %} -->
+
+                    {% if request.user == post.user or request.user.is_superuser %}
+                        <a href="{% url 'updateblog' post.pk %}"><button type="button" class="btn btn-primary">Edit
+                        Blog</button></a>
+                        <a href="{% url 'deleteblog' post.pk %}"><button type="button" class="btn btn-danger">Delete
+                        Blog</button></a>
+                    {% endif %}
                 </div>
             </div>
 

@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib import auth
@@ -45,6 +44,7 @@ class IndexView(View):
                     user = User.objects.create(first_name=firstname, last_name=lastname, username=username,
                                                password=make_password(password1), email=email)
                     user.save()
+                    # user.set_password(password1)
                     return redirect('MainBody')
                 else:
                     messages.error(request, "Password Doesn't Match")
@@ -124,15 +124,12 @@ class AddBlog(View):
         content = request.POST['content']
         category = request.POST['category']
         post_image = request.FILES['post_image']
-        category_check = Category.objects.filter(id=category)
+        category_check = Category.objects.get(id=category)
         print(category)
-        post = Post.objects.create(title=title, content=content, category=category_check.first(),
+        post = Post.objects.create(title=title, content=content, category=category_check,
                                        post_image=post_image, user = request.user)
         post.save()
         return redirect('MainBody')
-    # model = Post
-    # template_name = 'addblog.html'
-    # fields = '__all__'
 
 class AddCategory(CreateView):
     model = Category
@@ -145,7 +142,7 @@ class CategoryView(View):
         return render(request, 'categorypage.html', {'catergories':catergories, 'category_posts':category_posts})
 
 class Profile(View):
-
+#userdetailView
     def get(self, request, username):
         if request.user.is_authenticated:
             user = User.objects.get(username=username)
@@ -158,6 +155,7 @@ class Profile(View):
 
 
 class LoggedInUser(View):
+    #ProfileView
     def get(self, request, username):
         if request.user.is_authenticated:
             user = User.objects.get(username=username)

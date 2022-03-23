@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Application.apps.ApplicationConfig',
-    
+    'customadmin.apps.CustomadminConfig',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Added Manuelly
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "BlogSite\Application\static"),
+    # os.path.join(BASE_DIR, "BlogSite\Application\static"),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "images")
