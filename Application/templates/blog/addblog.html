@@ -5,15 +5,17 @@ Add Blog
 {% endblock %}
 
 {% block body %}
-<h1 class="addblog-title">ADD BLOG</h1>
-<br><br>
-<form action="" method="POST" enctype="multipart/form-data" style="text-align: center;">
-    {% csrf_token %}
-    
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Submit</button>
+<div style="background-color:grey ;">
+    <h1 class="addblog-title">ADD BLOG</h1>
+    <br><br>
+    <form action="" method="POST" enctype="multipart/form-data" style="text-align: center;">
+        {% csrf_token %}
 
-    <!-- <div class="row">
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <!-- <div class="row">
         <div class="col-4"></div>
         <div class="col">
 
@@ -58,5 +60,6 @@ Add Blog
         </div>
         <div class="col-4"></div>
     </div> -->
-</form>
+    </form>
+</div>
 {% endblock %}

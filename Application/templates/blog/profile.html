@@ -5,10 +5,11 @@ Profile
 {% endblock %}
 
 {% block body %}
-
+<div style="background-color: cyan;">
 <h1 class="profile-name">Profile Name: {{user.username}}</h1>
 <h3 style="text-align: center; color: blue;" class="profile-id">Profile Id: {{ user.id }}</h3>
-
+<hr style="padding: 3px; color: cyan;">
+</div>
 <h1 class="heading"><b>Blogs</b></h1>
 
 <ul>

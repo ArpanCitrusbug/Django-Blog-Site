@@ -107,6 +107,7 @@ class DetailBlog(View):
             blog = Post.objects.get(id=id)
             context = {
                 'post': blog,
+                'category_menu': Category.objects.all()
             }
             return render(request, 'detailedblog.html', context)
         else:
@@ -148,6 +149,7 @@ class Profile(View):
             user = User.objects.get(username=username)
             context = {
                 'user': user,
+                'category_menu': Category.objects.all()
             }
             return render(request, 'profile.html', context)
         else:
@@ -161,6 +163,7 @@ class LoggedInUser(View):
             user = User.objects.get(username=username)
             context = {
                 'user': user,
+                'category_menu': Category.objects.all()
             }
             return render(request, 'loggedinprofile.html', context)
         else:
