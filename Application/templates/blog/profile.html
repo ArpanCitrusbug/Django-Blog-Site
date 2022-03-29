@@ -15,7 +15,7 @@ Profile
 <ul>
     <div class="row row-cols-3">
         {% for post in user.post_set.all %}
-
+        {% if post.soft_delete == False %}
         <div class="card-group">
             <div class="card">
                 <img src="{{post.post_image.url}}" class="card-img-top" alt="...">
@@ -31,13 +31,14 @@ Profile
                     {% if request.user == post.user or request.user.is_superuser %}
                         <a href="{% url 'updateblog' post.pk %}"><button type="button" class="btn btn-primary">Edit
                         Blog</button></a>
-                        <a href="{% url 'deleteblog' post.pk %}"><button type="button" class="btn btn-danger">Delete
+                        <a href="{% url 'deleteblog' post.id %}"><button type="button" class="btn btn-danger">Delete
                         Blog</button></a>
                     {% endif %}
                 </div>
             </div>
 
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </ul>

@@ -7,15 +7,16 @@ from django.views.generic import *
 from .models import Category, Post
 from django.contrib.auth.models import User
 from django.views import *
-from django.urls import reverse_lazy
 from .forms import AddBlogForm
+from django.db.models import Q
 
 
 # Create your views here.
 class IndexView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            blog = Post.objects.all()
+           
+            blog = Post.objects.filter(soft_delete= False)
             p = Paginator(blog, 3)
             page = request.GET.get('page')
             blogs = p.get_page(page)
@@ -86,7 +87,7 @@ class LogIn(View):
 class MainBody(View):
     def get(self, request):
         if request.user.is_authenticated:
-            blog = Post.objects.all()
+            blog = Post.objects.filter(soft_delete= False)
             p = Paginator(blog, 3)
             page = request.GET.get('page')
             blogs = p.get_page(page)
@@ -150,6 +151,7 @@ class Profile(View):
             context = {
                 'user': user,
                 'category_menu': Category.objects.all()
+                
             }
             return render(request, 'profile.html', context)
         else:
@@ -161,9 +163,11 @@ class LoggedInUser(View):
     def get(self, request, username):
         if request.user.is_authenticated:
             user = User.objects.get(username=username)
+            # blog = Post.objects.get(soft_delete= True)
             context = {
                 'user': user,
-                'category_menu': Category.objects.all()
+                'category_menu': Category.objects.all(),
+                
             }
             return render(request, 'loggedinprofile.html', context)
         else:
@@ -181,9 +185,9 @@ class Logout(View):
 #         return render(request, 'category.html')
 
 
-class Signup(View):
-    def get(self, request):
-        return render(request, 'index.html')
+# class Signup(View):
+#     def get(self, request):
+#         return render(request, 'index.html')
 
 
 class UpdatePost(UpdateView):
@@ -191,15 +195,21 @@ class UpdatePost(UpdateView):
     template_name = 'updateblog.html'
     fields = ['title','content','category','post_image']
 
-class DeletePost(DeleteView):
-    model = Post
-    template_name = 'deletepost.html'
-    success_url = reverse_lazy('home')
+# class DeletePost(DeleteView):
+#     model = Post
+#     template_name = 'deletepost.html'
+#     success_url = reverse_lazy('home')
 
+class DeletePost(View):
+    def get(self,request, id):
+        blog = Post.objects.get(id=id)
+        blog.soft_delete = True
+        blog.save()
+        return redirect('MainBody')
 
 class SearchBlog(View):
     def post(self,request):
         searched = request.POST['searched']
-        blogs = Post.objects.filter(title__icontains=searched)
+        blogs = Post.objects.filter(Q(title__icontains=searched) | Q(content__icontains=searched))
         return render(request,'searchblog.html',{'searched':searched,
         'blogs':blogs})

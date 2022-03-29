@@ -24,22 +24,29 @@ class UserSerializers(serializers.ModelSerializer):
         model = User
         fields = ['first_name','last_name','username','email','password','id'] 
 
+    def create(self, validated_data):
+        user = User(validated_data)
+        user.save()
+        return user
+
+
 
 class PostSerializers(serializers.ModelSerializer):
     id = serializers.CharField(read_only=True)
     user = UserSerializers()
     class Meta:
         model = Post
-        fields=['title','post_image','content','category',"id","user"]
+        fields=['title','post_image','content','category','id','soft_delete','user']
 
 
-
-
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(read_only=True)
+class CategorySerializer(serializers.ModelSerializer):
     id = serializers.CharField(read_only=True)
+    
     class Meta:
-        model = Profile
-        fields = ['user','id']
+        model = Category
+        fields = ['id','name']
+
+    def create(self, validated_data):
+        print(validated_data)
+        return Category.objects.create(**validated_data)
+        

@@ -6,7 +6,7 @@ from django.urls import reverse
 
 # Create your models here.
 class Category(models.Model):
-    name= models.CharField(max_length=20, null=False)
+    name= models.CharField(max_length=20, unique = True)
 
 
 
@@ -24,6 +24,7 @@ class Post(models.Model):
     category= models.ForeignKey( Category, null=False, on_delete=models.CASCADE)
     publish_date= models.DateTimeField(auto_now_add=True)
     post_image = models.ImageField(upload_to="post/image", null=True)
+    soft_delete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + ' | ' + str(self.user)

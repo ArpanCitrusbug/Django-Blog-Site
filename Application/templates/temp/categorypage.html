@@ -13,7 +13,7 @@ Category Page | {{ catergories }}
 <ul>
 <div class="row row-cols-3">
 {% for post in category_posts %}
-
+{% if post.soft_delete == False %}
 <div class="col">
     <div class="card-group">
         <div class="card">
@@ -34,6 +34,7 @@ Category Page | {{ catergories }}
         </div>
     </div>
 </div>
+{% endif %}
 {% endfor %}
 </div>
 </ul>
