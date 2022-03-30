@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Application.apps.ApplicationConfig',
     'customadmin.apps.CustomadminConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'BlogAPI.apps.BlogapiConfig',
 ]
 

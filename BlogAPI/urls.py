@@ -1,5 +1,6 @@
 from django.urls import path
 from BlogAPI.views import *
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     #UserAPI
@@ -13,4 +14,7 @@ urlpatterns = [
     #CategoryAPI
     path('categoryapi/', CategoryAPI.as_view()),
     path('categoryapi/<int:pk>', CategoryAPI.as_view()),
+
+    #user_token API
+    path('gettoken/',obtain_auth_token)
     ]

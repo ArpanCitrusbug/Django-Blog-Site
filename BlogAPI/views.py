@@ -4,6 +4,7 @@ from Application.models import *
 from rest_framework.views import APIView
 from BlogAPI.serializers import *
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 #USER API's
@@ -43,19 +44,23 @@ class UserAPI(APIView):
 
 #BLOG API's
 class PostAPI(APIView):
+    authentication_class=[TokenAuthentication]
     def get(self, request,pk = None, format= None):
         id = pk 
         if id is not None:
             post = Post.objects.get(id=id)
             serializer = PostSerializers(post)
+            
             return Response(serializer.data)
-
+        
         post = Post.objects.all()
         serializer = PostSerializers(post , many = True)
         return Response(serializer.data)
     
 
     def post(self, request, format=None):
+        request.data.update({"user":request.user})
+        # print(request.data)
         serializer = PostSerializers(data = request.data)
         if serializer.is_valid():
             serializer.save()

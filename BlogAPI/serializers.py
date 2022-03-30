@@ -1,4 +1,5 @@
 from multiprocessing import managers
+from operator import methodcaller
 from pyexpat import model
 from Application.models import *
 from rest_framework import serializers
@@ -37,6 +38,13 @@ class PostSerializers(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields=['title','post_image','content','category','id','soft_delete','user']
+    
+    def create(self, validated_data):
+        new_post = Post.objects.create(**validated_data)
+        new_post.user = validated_data['user']
+        new_post.save()
+        return new_post
+
 
 
 class CategorySerializer(serializers.ModelSerializer):
