@@ -1,4 +1,4 @@
-from os import name
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib import auth
@@ -212,5 +212,5 @@ class SearchBlog(View):
     def post(self,request):
         searched = request.POST['searched']
         blogs = Post.objects.filter(Q(title__icontains=searched) | Q(content__icontains=searched))
-        return render(request,'searchblog.html',{'searched':searched,
+        return render(request,'searchblog.html',{
         'blogs':blogs})

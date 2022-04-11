@@ -1,6 +1,3 @@
-from multiprocessing import managers
-from operator import methodcaller
-from pyexpat import model
 from Application.models import *
 from rest_framework import serializers
 

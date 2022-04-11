@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from Application.models import *
 from rest_framework.views import APIView
@@ -116,9 +115,14 @@ class CategoryAPI(APIView):
 
     def patch(self, request, pk, format= None):
         id = pk 
-        user = User.objects.get(pk = id)
-        serializer = CategorySerializer(user, data=request.data, partial= True)
+        category = Category.objects.get(pk = id)
+        serializer = CategorySerializer(category, data=request.data, partial= True)
         if serializer.is_valid():
             serializer.save()
             return Response({'msg':'Partial Data Updated'})
         return Response(serializer.errors)
+
+
+#-------------------------------------------------------------------------------------------
+
+#User-Access Token API
